@@ -6,6 +6,8 @@
 const MAIN_PORTAL_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/portals_main.json";
 const MAIN_ARTICLES_JSON = "articles_main.json";
 
+const PORTALS_URL = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/"
+
 function htmlToElement(html) {
     let template = document.createElement('template');
     html = html.trim();
@@ -43,7 +45,7 @@ function makePortalsWelcome(welcomeObj) {
 }
 
 
-function makePortalGrid(tempsList) {
+function makeAllGrid(tempsList) {
     const colNum = tempsList.length >= 3? 3 : tempsList.length;
 
     let text = `<div class="container">`;
@@ -86,7 +88,7 @@ function makePortalMain(mainPortalJSON) {
 
     let allTemps = mainPortalJSON.portalList.map(x => makeFullPortal(x));
 
-    let tempsGrid = makePortalGrid(allTemps);
+    let tempsGrid = makeAllGrid(allTemps);
 
     text += `<br>` + tempsGrid;
 
@@ -97,6 +99,66 @@ function makePortalMain(mainPortalJSON) {
 
 function parseAndCreateMainPortal() {
     let req = new Request(MAIN_PORTAL_JSON);
+
+    fetch(req)
+        .then(response => {           
+           response.json()
+            .then(data => {
+                console.log(data);
+                const portalGrid = makePortalMain(data);
+                console.log(portalGrid);
+                const htmlRes = htmlToElement(portalGrid);
+                console.log(htmlRes);
+            })
+        })
+    
+
+}
+
+function makeSubPortalTemplate(subPortalObj) {
+    return `<div class="card" style="width: 18rem;"> <div class="card-body"> <h5 class="card-title">${subPortalObj.subPortalTitle}</h5> <p class="card-text">${subPortalObj.subPortalDesc}</p></div>${subPortalObj.subPortalList}</div>`
+}
+
+function makePortalSampleList(pages) {
+    let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
+    for (let i = 0; i < pages.length; i++) {
+        text += `<li class="list-group-item "><a href="/articles/${pages[i].pageFile}">${samples[i].pageName}</li>`;
+    }
+
+    text += `</ul>`
+
+    return text
+
+}
+
+function makeFullSubPortal(subPortal) {
+    let pages = makePortalSampleList(subPortal.pages);
+
+    delete subPortal.pages;
+
+    subPortal.subPortalList = pages;
+
+    return makeSubPortalTemplate(subPortal)
+}
+
+
+function makeSubPortalMain(mainSubPortalJSON) {
+    let text = `<div id="mainPortalsDiv" class="${window.mainSubPortalClass}">`;
+
+
+    let allTemps = mainSubPortalJSON.portalList.map(x => makeFullSubPortal(x));
+
+    let tempsGrid = makeAllGrid(allTemps);
+
+    text += tempsGrid;
+
+    text += `</div>`;
+
+    return text;
+}
+
+function parseAndCreateSubPortal(portalFile) {
+    let req = new Request(PORTALS_URL + portalFile + ".json");
 
     fetch(req)
         .then(response => {           
