@@ -5,10 +5,10 @@
 
 const MAIN_PORTAL_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/portals_main.json";
 
-const MAIN_ARTICLES_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/portals_main.json";
+const MAIN_ARTICLES_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_articles/articles_main.json";
 
 
-
+const ARTICLES_URL = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_articles/"
 const PORTALS_URL = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/"
 
 function htmlToElement(html) {
@@ -19,7 +19,7 @@ function htmlToElement(html) {
     mainDiv.appendChild(template.content.firstChild);
 }
 
-function htmlToElements(html)  {
+function htmlToElements(html) {
     let template = document.createElement('template');
     html = html.trim();
     template.innerHTML = html;
@@ -49,7 +49,7 @@ function makePortalsWelcome(welcomeObj) {
 
 
 function makeAllGrid(tempsList) {
-    const colNum = tempsList.length >= 3? 3 : tempsList.length;
+    const colNum = tempsList.length >= 3 ? 3 : tempsList.length;
 
     let text = `<div class="container">`;
 
@@ -70,7 +70,7 @@ function makeAllGrid(tempsList) {
     text += `</div>`;
 
     return text
-    
+
 }
 
 function makeFullPortal(portal) {
@@ -106,17 +106,17 @@ function parseAndCreateMainPortal() {
     let req = new Request(MAIN_PORTAL_JSON);
 
     fetch(req)
-        .then(response => {           
-           response.json()
-            .then(data => {
-                console.log(data);
-                const portalGrid = makePortalMain(data);
-                console.log(portalGrid);
-                const htmlRes = htmlToElement(portalGrid);
-                console.log(htmlRes);
-            })
+        .then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data);
+                    const portalGrid = makePortalMain(data);
+                    console.log(portalGrid);
+                    const htmlRes = htmlToElement(portalGrid);
+                    console.log(htmlRes);
+                })
         })
-    
+
 
 }
 
@@ -146,12 +146,20 @@ function makeFullSubPortal(subPortal) {
     return makeSubPortalTemplate(subPortal)
 }
 
+function makePortalsHeader(headerObj) {
+    return `<div class="card  ${window.cardClass}"> <div class="card-header">${headerObj.portalName}</div><div class="card-body"> ${headerObj.portalDesc}</div></div>`
+}
+
 
 function makeSubPortalMain(mainSubPortalJSON) {
     let text = `<div id="mainPortalsDiv" class="${window.mainSubPortalClass}">`;
 
+    text += makePortalsHeader({
+        "portalName": mainSubPortalJSON.portalName,
+        "portalDesc": mainSubPortalJSON.portalDesc
+    })
 
-    let allTemps = mainSubPortalJSON.map(x => makeFullSubPortal(x));
+    let allTemps = mainSubPortalJSON.subPortals.map(x => makeFullSubPortal(x));
 
     let tempsGrid = makeAllGrid(allTemps);
 
@@ -166,16 +174,78 @@ function parseAndCreateSubPortal(portalFile) {
     let req = new Request(PORTALS_URL + portalFile + ".json");
 
     fetch(req)
-        .then(response => {           
-           response.json()
-            .then(data => {
-                console.log(data);
-                const portalGrid = makeSubPortalMain(data);
-                console.log(portalGrid);
-                const htmlRes = htmlToElement(portalGrid);
-                console.log(htmlRes);
-            })
+        .then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data);
+                    const portalGrid = makeSubPortalMain(data);
+                    console.log(portalGrid);
+                    const htmlRes = htmlToElement(portalGrid);
+                    console.log(htmlRes);
+                })
         })
-    
+
+
+}
+
+function makeFooter(tagsArr, portalsArr) {
+    let mPortals = `<div class="${window.mPortalsClass}">`;
+    let tags = `<div class="${window.tagsClass}>`;
+
+    for (let i = 0; i < tagsArr.length; i++) {
+        tags += `<span class="badge rounded-pill bg-success">${tagsArr[i]}</span>`;
+    }
+
+    for (let i = 0; i < portalsArr.length; i++) {
+        mPortals += `<a href="#portals:${portalsArr[i].portalFile}" class="btn btn-primary">${portalsArr[i].portalName}</a>`;
+    }
+
+    mPortals += `</div>`;
+    tags += `</div>`;
+
+    return `<div class="card"> <div class="card-header"> Tags & Member Portals </div><div class="card-body"> ${tags}<hr> ${mPortals}</div></div>`
+}
+
+
+function makeFullPage(dataObj) {
+    console.log(dataObj)
+    let text = `<div class="${window.articleCLass}">`
+
+    text += `<div class="card  ${window.articleHeaderClass}"> <div class="card-header">${dataObj.articleName}</div><div class="card-body"> ${dataObj.articleDesc}</div></div>`;
+
+    const footer = makeFooter(dataObj.tags, dataObj.articlePortals);
+
+    let req = new Request(ARTICLES_URL + dataObj.markdownFile);
+
+    fetch(req)
+        .then(response => {
+            response.text()
+                .then(data => {
+                    const txtMd = MarkdownToHtml.parse(data);
+                    const articleMeat = `<div class="${window.articleClass}">${txtMd}</div>`;
+                    text + articleMeat + footer;
+                    
+                    let res = htmlToElement(text);
+
+                    console.log(res);
+                })
+        })
+
+}
+
+
+function createPage(articleName) {
+    let req = new Request(MAIN_ARTICLES_JSON);
+
+    fetch(req)
+        .then(response => {
+            response.json()
+                .then(data => {
+                    console.log(data)
+                    makeFullPage(data[articleName]);
+                    console.log("Article created.")
+                })
+        })
+
 
 }

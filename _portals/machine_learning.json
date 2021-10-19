@@ -1,31 +1,35 @@
-[{
-        "subPortalTitle": "NLP",
-        "subPortalDesc": "Deep Learning rules!",
-        "pages": [{
-                "pageName": "BERT",
-                "pageFile": "bert"
-            },
-            {
-                "pageName": "T5",
-                "pageFile": "t5"
-            },
-            {
-                "pageName": "GPT-3",
-                "pageFile": "gpt3"
-            }
-        ]
-    },
-    {
-        "subPortalTitle": "Vision",
-        "subPortalDesc": "Vision Learning rules!",
-        "pages": [{
-                "pageName": "OpenCV",
-                "pageFile": "opencv"
-            },
-            {
-                "pageName": "ImageNet",
-                "pageFile": "imagenet"
-            }
-        ]
-    }
-]
+{
+    "portalName": "A Good Portal",
+    "portalDesc": "A good desc",
+    "suPortals": [{
+            "subPortalTitle": "NLP",
+            "subPortalDesc": "Deep Learning rules!",
+            "pages": [{
+                    "pageName": "BERT",
+                    "pageFile": "bert"
+                },
+                {
+                    "pageName": "T5",
+                    "pageFile": "t5"
+                },
+                {
+                    "pageName": "GPT-3",
+                    "pageFile": "gpt3"
+                }
+            ]
+        },
+        {
+            "subPortalTitle": "Vision",
+            "subPortalDesc": "Vision Learning rules!",
+            "pages": [{
+                    "pageName": "OpenCV",
+                    "pageFile": "opencv"
+                },
+                {
+                    "pageName": "ImageNet",
+                    "pageFile": "imagenet"
+                }
+            ]
+        }
+    ]
+}

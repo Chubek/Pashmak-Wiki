@@ -1,7 +1,15 @@
-[
-    {
+{
+    "testy_test": {
         "articleName": "TestyTest",
-        "articlePortals": ["machine_learning", "dude"],
-        "markdownFile": "testy_test.md"
+        "articleDesc": "A good article",
+        "articlePortals": [{
+            "portalFile": "machine_learning",
+            "portalName": "Machine Learning"
+        }, {
+            "portalFile": "poverty",
+            "portalName": "Poverty"
+        }],
+        "markdownFile": "testy_test.md",
+        "tags": ["cool-article"]
     }
-]
+}
