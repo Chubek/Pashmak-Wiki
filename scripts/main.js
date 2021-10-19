@@ -190,14 +190,14 @@ function parseAndCreateSubPortal(portalFile) {
 
 function makeFooter(tagsArr, portalsArr) {
     let mPortals = `<div class="${window.mPortalsClass}">`;
-    let tags = `<div class="${window.tagsClass}>`;
+    let tags = `<div class="${window.tagsClass}">`;
 
     for (let i = 0; i < tagsArr.length; i++) {
-        tags += `<span class="badge rounded-pill bg-success">${tagsArr[i]}</span>`;
+        tags += `<a  href="#tags:${tagsArr[i]}"><span class="badge bg-secondary">${tagsArr[i]}</span></a>&emsp;`;
     }
 
     for (let i = 0; i < portalsArr.length; i++) {
-        mPortals += `<a href="#portals:${portalsArr[i].portalFile}" class="btn btn-primary">${portalsArr[i].portalName}</a>`;
+        mPortals += `<a href="#portals:${portalsArr[i].portalFile}" class="btn btn-primary">${portalsArr[i].portalName}</a>&emsp;`;
     }
 
     mPortals += `</div>`;
@@ -214,17 +214,18 @@ function makeFullPage(dataObj) {
     text += `<div class="card  ${window.articleHeaderClass}"> <div class="card-header">${dataObj.articleName}</div><div class="card-body"> ${dataObj.articleDesc}</div></div>`;
 
     const footer = makeFooter(dataObj.tags, dataObj.articlePortals);
-
+    console.log(footer)
     let req = new Request(ARTICLES_URL + dataObj.markdownFile);
+
+    var md = window.markdownit();
 
     fetch(req)
         .then(response => {
             response.text()
                 .then(data => {
-                    const txtMd = MarkdownToHtml.parse(data);
+                    const txtMd = md.render(data);
                     const articleMeat = `<div class="${window.articleClass}">${txtMd}</div>`;
-                    text + articleMeat + footer;
-                    
+                    text += articleMeat + footer;
                     let res = htmlToElement(text);
 
                     console.log(res);
