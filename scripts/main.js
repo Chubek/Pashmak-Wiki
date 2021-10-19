@@ -78,7 +78,9 @@ function makeFullPortal(portal) {
 function makePortalMain(mainPortalJSON) {
     let text = `<div id="mainPortalsDiv" class="${window.mainPortalClass}">`;
 
-    text += `<br>` + makePortalsWelcome(mainPortalJSON.welcomeObj);
+    text += `<br>` + makePortalsWelcome(mainPortalJSON.welcomeObjc);
+
+    console.log(mainPortalJSON.portalList)
 
     let allTemps = mainPortalJSON.portalList.map(x => makeFullPortal(x));
 

@@ -8,7 +8,7 @@
         "imgHeaderSrc": "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r2.png",
         "imgHeaderAlt": "Alt",
         "portalFileName": "terbethia",
-        "ampleArticles": [{
+        "sampleArticles": [{
             "sampleArticleFileName": "titorito",
             "sampleArticleTitle": "Article 1"
         }]
