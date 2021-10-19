@@ -21,7 +21,7 @@ function htmlToElements(html)  {
 }
 
 function makePortalTemplate(templateObj) {
-    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${portalName}</h5> <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p></div>${templateObj.sampleList}<div class="card-body"> <a href="/portals/${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
+    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p></div>${templateObj.sampleList}<div class="card-body"> <a href="/portals/${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
 }
 
 function makePortalSampleList(samples) {
