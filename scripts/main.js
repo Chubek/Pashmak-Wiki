@@ -25,8 +25,7 @@ const parseAndCreateMainPortal = () => {
         portalGrid = makePortalMain(mainPortalJson);
     }
 
-    return htmlToElement(portalGrid);
-    
+    return htmlToElement(portalGrid);   
 
 
 }
