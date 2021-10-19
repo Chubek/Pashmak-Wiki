@@ -1,0 +1,7 @@
+[
+    {
+        "articleName": "TestyTest",
+        "articlePortals": ["machine_learning", "dude"],
+        "markdownFile": "testy_test.md"
+    }
+]

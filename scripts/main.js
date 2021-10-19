@@ -4,7 +4,10 @@
 
 
 const MAIN_PORTAL_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/portals_main.json";
-const MAIN_ARTICLES_JSON = "articles_main.json";
+
+const MAIN_ARTICLES_JSON = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/portals_main.json";
+
+
 
 const PORTALS_URL = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/master/_portals/"
 
@@ -24,14 +27,14 @@ function htmlToElements(html)  {
 }
 
 function makePortalTemplate(templateObj) {
-    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="/portals/${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
+    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="#portals:${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
 }
 
 function makePortalSampleList(samples) {
     console.log(samples)
     let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
     for (let i = 0; i < samples.length; i++) {
-        text += `<li class="list-group-item "><a href="/articles/${samples[i].sampleArticleFileName}">${samples[i].sampleArticleTitle}</li>`;
+        text += `<li class="list-group-item "><a href="#articles:${samples[i].sampleArticleFileName}">${samples[i].sampleArticleTitle}</a></li>`;
     }
 
     text += `</ul>`
@@ -60,6 +63,8 @@ function makeAllGrid(tempsList) {
 
             text += `<div class="col">${tempsList[i + j]}</div>`;
         }
+
+        text += `</div>`
     }
 
     text += `</div>`;
@@ -122,7 +127,7 @@ function makeSubPortalTemplate(subPortalObj) {
 function makePortalSampleList(pages) {
     let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
     for (let i = 0; i < pages.length; i++) {
-        text += `<li class="list-group-item "><a href="/articles/${pages[i].pageFile}">${samples[i].pageName}</li>`;
+        text += `<li class="list-group-item "><a href="#articles:${pages[i].pageFile}">${pages[i].pageName}</a></li>`;
     }
 
     text += `</ul>`
@@ -146,7 +151,7 @@ function makeSubPortalMain(mainSubPortalJSON) {
     let text = `<div id="mainPortalsDiv" class="${window.mainSubPortalClass}">`;
 
 
-    let allTemps = mainSubPortalJSON.portalList.map(x => makeFullSubPortal(x));
+    let allTemps = mainSubPortalJSON.map(x => makeFullSubPortal(x));
 
     let tempsGrid = makeAllGrid(allTemps);
 
@@ -165,7 +170,7 @@ function parseAndCreateSubPortal(portalFile) {
            response.json()
             .then(data => {
                 console.log(data);
-                const portalGrid = makePortalMain(data);
+                const portalGrid = makeSubPortalMain(data);
                 console.log(portalGrid);
                 const htmlRes = htmlToElement(portalGrid);
                 console.log(htmlRes);
