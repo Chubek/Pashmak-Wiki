@@ -9,6 +9,7 @@
         "imgHeaderAlt": "Alt",
         "portalFileName": "terbethia",
         "portalName": "Prt",
+        "portalDesc": "Portal Description",
         "sampleArticles": [{
             "sampleArticleFileName": "titorito",
             "sampleArticleTitle": "Article 1"

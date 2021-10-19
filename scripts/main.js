@@ -10,7 +10,8 @@ function htmlToElement(html) {
     let template = document.createElement('template');
     html = html.trim();
     template.innerHTML = html;
-    return template.content.firstChild;
+    const mainDiv = document.getElementById("main");
+    mainDiv.appendChild(template.content.firstChild);
 }
 
 function htmlToElements(html)  {
@@ -21,12 +22,11 @@ function htmlToElements(html)  {
 }
 
 function makePortalTemplate(templateObj) {
-    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p></div>${templateObj.sampleList}<div class="card-body"> <a href="/portals/${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
+    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="/portals/${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
 }
 
 function makePortalSampleList(samples) {
     let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
-
     for (sampleArticleName in samples) {
         text += `<li class="list-group-item "><a href="/articles/${sampleArticleName.sampleArticleFileName}">${sampleArticleName.sampleArticleTitle}</li>`;
     }
@@ -47,10 +47,10 @@ function makePortalGrid(tempsList) {
 
     let text = `<div class="container">`;
 
-    for (const i = 0; i < tempsList.length; i += colNum) {
+    for (let i = 0; i < tempsList.length; i += colNum) {
         text += `<div class="row">`;
 
-        for (const j = 0; j < colNum; j++) {
+        for (let j = 0; j < colNum; j++) {
             if (i + j == tempsList.length) {
                 continue
             }
@@ -66,7 +66,7 @@ function makePortalGrid(tempsList) {
 }
 
 function makeFullPortal(portal) {
-    let sampArticles = portal.sampleArticles.map(x => makePortalSampleList(x)).join();
+    let sampArticles = makePortalSampleList(portal.sampleArticles);
 
     delete portal.sampleArtilcles;
 
