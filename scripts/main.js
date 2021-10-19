@@ -26,9 +26,10 @@ function makePortalTemplate(templateObj) {
 }
 
 function makePortalSampleList(samples) {
+    console.log(samples)
     let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
-    for (sampleArticleName in samples) {
-        text += `<li class="list-group-item "><a href="/articles/${sampleArticleName.sampleArticleFileName}">${sampleArticleName.sampleArticleTitle}</li>`;
+    for (let i = 0; i < samples.length; i++) {
+        text += `<li class="list-group-item "><a href="/articles/${samples[i].sampleArticleFileName}">${samples[i].sampleArticleTitle}</li>`;
     }
 
     text += `</ul>`
@@ -66,6 +67,7 @@ function makePortalGrid(tempsList) {
 }
 
 function makeFullPortal(portal) {
+    console.log(portal.sampleArticles)
     let sampArticles = makePortalSampleList(portal.sampleArticles);
 
     delete portal.sampleArtilcles;
