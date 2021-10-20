@@ -2,6 +2,7 @@ export const htmlToElement = (html) => {
     let template = document.createElement('template');
     html = `<div class=${window.themeClass}">` + html.trim() + `</div>`;
     template.innerHTML = html;
+    console.log(html);
     const mainDiv = document.getElementById("main");
     mainDiv.appendChild(template.content.firstChild);
 }

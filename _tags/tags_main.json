@@ -1,0 +1,13 @@
+{
+    "tagPageTitle": "A cool tag Page!",
+    "tagPageDesc": "All tags are here!",
+    "tags": [{
+        "tagName": "cool-article",
+        "tagDesc": "A cool tag",
+        "articles": [{"pageFile": "testy_test", "pageName": "Testy Test"}]
+    }, {
+        "tagName": "uncool-article",
+        "tagDesc": "An uncool tag",
+        "articles": [{"pageFile": "fff_test", "pageName": "FFF Test"}]
+    }]
+}

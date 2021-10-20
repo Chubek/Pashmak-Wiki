@@ -16,6 +16,8 @@ http.createServer(function (request, response) {
         '.js': 'text/javascript',
         '.css': 'text/css',
         '.json': 'application/json',
+        '.md': 'text/markdown; charset=UTF-8',
+        '.markdown': 'text/markdown; charset=UTF-8',
         '.png': 'image/png',
         '.jpg': 'image/jpg',
         '.gif': 'image/gif',

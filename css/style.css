@@ -1,6 +1,88 @@
+
 .linkTag {
     border-radius: 1px black;
     background-color: beige;
     color: black;
     padding: 4px;
+}
+
+.articleBase {
+    padding-left: 10px;
+}
+
+.articleFontTimesNewRoman {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.articleFontTrebuchetMS {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.articleFontArial {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.articleFontGeorgia {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.articleVerdana {
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+}
+
+.fontSizeXLarge {
+    font-size: x-large;
+}
+
+.fontSizeLarge {
+    font-size: large;
+}
+
+.fontSizeMedium {
+    font-size: medium;
+}
+
+.fontSizeSmall {
+    font-size: small;
+}
+
+.fontSizeXSmall {
+    font-size: x-small;
+}
+
+.themeClassDark {
+    background-color: gray;
+    color: wheat;
+}
+
+
+#toggleSettings {
+    border-radius: 40px;
+    background-color: #36617826;
+    position: relative;
+    right: 10%;
+    top: 20%;
+    margin-top: 8px;
+    padding: 20px;
+    z-index: 5;
+    width: 300px;
+}
+
+.settingsButtonCLass {
+    position: relative;
+    left: 92%;
+    top: 5%;
+    z-index: 4;
+}
+
+.noneDisplay {
+    display: none;
+}
+
+.inlineDisplay {
+    float: right;
+}
+
+#footer {
+    z-index: 4;
 }
