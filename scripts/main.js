@@ -6,16 +6,16 @@ import {
     makePortalMain,
     makeSubPortalMain,
     makeFullPage
-} from "./templates"
+} from "./templates.js"
 import {
     MAIN_PORTAL_JSON,
     PORTALS_PATTH,
     MAIN_ARTICLES_JSON
-} from "../constants"
+} from "../constants.js"
 
 
 
-export const parseAndCreateMainPorta = () => {
+export const parseAndCreateMainPortal = () => {
     let req = new Request(MAIN_PORTAL_JSON);
 
     fetch(req)

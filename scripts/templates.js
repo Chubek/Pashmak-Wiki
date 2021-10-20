@@ -1,7 +1,9 @@
 import {
     ARTICLES_PATH
-} from "../constants"
-
+} from "../constants.js"
+import {
+    htmlToElement
+} from "./utils.js"
 
 
 const makePortalTemplate = (templateObj) => {
@@ -86,7 +88,7 @@ const makeSubPortalTemplate = (subPortalObj) => {
     return `<div class="card" style="width: 18rem;"> <div class="card-body"> <h5 class="card-title">${subPortalObj.subPortalTitle}</h5> <p class="card-text">${subPortalObj.subPortalDesc}</p></div>${subPortalObj.subPortalList}</div>`
 }
 
-const makePortalSampleList = (pages) => {
+const makeSubPortalSampleList = (pages) => {
     let text = `<ul class="list-group list-group-flush ">`;
     for (let i = 0; i < pages.length; i++) {
         text += `<li class="list-group-item "><a href="#articles:${pages[i].pageFile}">${pages[i].pageName}</a></li>`;
@@ -99,7 +101,7 @@ const makePortalSampleList = (pages) => {
 }
 
 const makeFullSubPortal = (subPortal) => {
-    let pages = makePortalSampleList(subPortal.pages);
+    let pages = makeSubPortalSampleList(subPortal.pages);
 
     delete subPortal.pages;
 
