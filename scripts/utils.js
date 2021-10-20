@@ -1,4 +1,3 @@
-
 export const htmlToElement = (html) => {
     let template = document.createElement('template');
     html = `<div class=${window.themeClass}">` + html.trim() + `</div>`;

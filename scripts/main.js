@@ -2,16 +2,20 @@
 //Written by Chubak Bidpaa --- Coding started on 10/18/2021 5:00 PM
 //Polyfill will be provided in main HTML file
 
+import {
+    makePortalMain,
+    makeSubPortalMain,
+    makeFullPage
+} from "./templates"
+import {
+    MAIN_PORTAL_JSON,
+    PORTALS_PATTH,
+    MAIN_ARTICLES_JSON
+} from "../constants"
 
-const MAIN_PORTAL_JSON = "../_portals/portals_main.json";
-
-const MAIN_ARTICLES_JSON = "../_articles/articles_main.json";
 
 
-const ARTICLES_PATH = "../_articles/"
-const PORTALS_PATTH = "../_portals/"
-
-function parseAndCreateMainPortal() {
+export const parseAndCreateMainPorta = () => {
     let req = new Request(MAIN_PORTAL_JSON);
 
     fetch(req)
@@ -30,7 +34,7 @@ function parseAndCreateMainPortal() {
 }
 
 
-function parseAndCreateSubPortal(portalFile) {
+export const parseAndCreateSubPortal = (portalFile) => {
     let req = new Request(PORTALS_PATTH + portalFile + ".json");
 
     fetch(req)
@@ -49,7 +53,7 @@ function parseAndCreateSubPortal(portalFile) {
 }
 
 
-function createPage(articleName) {
+export const createPage = (articleName) => {
     let req = new Request(MAIN_ARTICLES_JSON);
 
     fetch(req)

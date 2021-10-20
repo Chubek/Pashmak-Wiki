@@ -1,9 +1,14 @@
+import {
+    ARTICLES_PATH
+} from "../constants"
 
-export const makePortalTemplate = (templateObj) => {
+
+
+const makePortalTemplate = (templateObj) => {
     return `<div class="card" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="#portals:${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
 }
 
-function makePortalSampleList = (samples)  =>  {
+const makePortalSampleList = (samples) => {
     console.log(samples)
     let text = `<ul class="list-group list-group-flush ">`;
     for (let i = 0; i < samples.length; i++) {
@@ -16,12 +21,12 @@ function makePortalSampleList = (samples)  =>  {
 
 }
 
-export const makePortalsWelcome = (welcomeObj)  =>  {
+const makePortalsWelcome = (welcomeObj) => {
     return `<div class="card "> <div class="card-header"> Welcome to ${welcomeObj.wikiTitle} Wiki Portals Page! </div><div class="card-body"> ${welcomeObj.description}</div></div>`
 }
 
 
-export const makeAllGrid = (tempsList)  => {
+const makeAllGrid = (tempsList) => {
     const colNum = tempsList.length >= 3 ? 3 : tempsList.length;
 
     let text = `<div class="container">`;
@@ -46,7 +51,7 @@ export const makeAllGrid = (tempsList)  => {
 
 }
 
-export const makeFullPortal = (portal)  =>  {
+const makeFullPortal = (portal) => {
     console.log(portal.sampleArticles)
     let sampArticles = makePortalSampleList(portal.sampleArticles);
 
@@ -57,7 +62,7 @@ export const makeFullPortal = (portal)  =>  {
     return makePortalTemplate(portal)
 }
 
-export const makePortalMain = (mainPortalJSON)  =>  {
+export const makePortalMain = (mainPortalJSON) => {
     let text = `<div id="mainPortalsDiv">`;
 
     text += `<br>` + makePortalsWelcome(mainPortalJSON.welcomeObjc);
@@ -77,11 +82,11 @@ export const makePortalMain = (mainPortalJSON)  =>  {
 
 
 
-export const makeSubPortalTemplate = (subPortalObj) => {
+const makeSubPortalTemplate = (subPortalObj) => {
     return `<div class="card" style="width: 18rem;"> <div class="card-body"> <h5 class="card-title">${subPortalObj.subPortalTitle}</h5> <p class="card-text">${subPortalObj.subPortalDesc}</p></div>${subPortalObj.subPortalList}</div>`
 }
 
-export const makePortalSampleList = (pages) => {
+const makePortalSampleList = (pages) => {
     let text = `<ul class="list-group list-group-flush ">`;
     for (let i = 0; i < pages.length; i++) {
         text += `<li class="list-group-item "><a href="#articles:${pages[i].pageFile}">${pages[i].pageName}</a></li>`;
@@ -93,7 +98,7 @@ export const makePortalSampleList = (pages) => {
 
 }
 
-export const makeFullSubPortal = (subPortal) => {
+const makeFullSubPortal = (subPortal) => {
     let pages = makePortalSampleList(subPortal.pages);
 
     delete subPortal.pages;
@@ -103,12 +108,12 @@ export const makeFullSubPortal = (subPortal) => {
     return makeSubPortalTemplate(subPortal)
 }
 
-export const makePortalsHeader = (headerObj) => {
+const makePortalsHeader = (headerObj) => {
     return `<div class="card "> <div class="card-header">${headerObj.portalName}</div><div class="card-body"> ${headerObj.portalDesc}</div></div>`
 }
 
 
-export const makeSubPortalMain(mainSubPortalJSON) => {
+export const makeSubPortalMain = (mainSubPortalJSON) => {
     let text = `<div id="mainPortalsDiv">`;
 
     text += makePortalsHeader({
@@ -129,7 +134,7 @@ export const makeSubPortalMain(mainSubPortalJSON) => {
 
 
 
-export const makeFooter = (tagsArr, portalsArr) => {
+const makeFooter = (tagsArr, portalsArr) => {
     console.log(window);
     console.log(window.location.hash);
     let mPortals = `<div>`;
@@ -158,7 +163,7 @@ export const makeFullPage = (dataObj) => {
 
     const footer = makeFooter(dataObj.tags, dataObj.articlePortals);
     console.log(footer)
-    let req = new Request(ARTICLES_URL + dataObj.markdownFile);
+    let req = new Request(ARTICLES_PATH + dataObj.markdownFile);
 
     var md = window.markdownit();
 
