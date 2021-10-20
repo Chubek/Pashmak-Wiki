@@ -13,7 +13,7 @@ const PORTALS_URL = "https://raw.githubusercontent.com/Chubek/Pashmak-Wiki/maste
 
 function htmlToElement(html) {
     let template = document.createElement('template');
-    html = html.trim();
+    html = `<div class=${window.themeClass}">` + html.trim() + `</div>`;
     template.innerHTML = html;
     const mainDiv = document.getElementById("main");
     mainDiv.appendChild(template.content.firstChild);
@@ -27,12 +27,12 @@ function htmlToElements(html) {
 }
 
 function makePortalTemplate(templateObj) {
-    return `<div class="card ${window.cardClass}" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="#portals:${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
+    return `<div class="card" style="width: 18rem;"> <img class="card-img-top" src="${templateObj.imgHeaderSrc}" alt="${templateObj.imgHeaderAlt}"> <div class="card-body"> <h5 class="card-title">${templateObj.portalName}</h5> <p class="card-text">${templateObj.portalDesc}</p></div>${templateObj.sampleList}<div class="card-body"> <a href="#portals:${templateObj.portalFileName}" class="card-link">Full Pages</a> </div></div>`
 }
 
 function makePortalSampleList(samples) {
     console.log(samples)
-    let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
+    let text = `<ul class="list-group list-group-flush ">`;
     for (let i = 0; i < samples.length; i++) {
         text += `<li class="list-group-item "><a href="#articles:${samples[i].sampleArticleFileName}">${samples[i].sampleArticleTitle}</a></li>`;
     }
@@ -44,7 +44,7 @@ function makePortalSampleList(samples) {
 }
 
 function makePortalsWelcome(welcomeObj) {
-    return `<div class="card  ${window.cardClass}"> <div class="card-header"> Welcome to ${welcomeObj.wikiTitle} Wiki Portals Page! </div><div class="card-body"> ${welcomeObj.description}</div></div>`
+    return `<div class="card "> <div class="card-header"> Welcome to ${welcomeObj.wikiTitle} Wiki Portals Page! </div><div class="card-body"> ${welcomeObj.description}</div></div>`
 }
 
 
@@ -85,7 +85,7 @@ function makeFullPortal(portal) {
 }
 
 function makePortalMain(mainPortalJSON) {
-    let text = `<div id="mainPortalsDiv" class="${window.mainPortalClass}">`;
+    let text = `<div id="mainPortalsDiv">`;
 
     text += `<br>` + makePortalsWelcome(mainPortalJSON.welcomeObjc);
 
@@ -125,7 +125,7 @@ function makeSubPortalTemplate(subPortalObj) {
 }
 
 function makePortalSampleList(pages) {
-    let text = `<ul class="list-group list-group-flush  ${window.cardClass}">`;
+    let text = `<ul class="list-group list-group-flush ">`;
     for (let i = 0; i < pages.length; i++) {
         text += `<li class="list-group-item "><a href="#articles:${pages[i].pageFile}">${pages[i].pageName}</a></li>`;
     }
@@ -147,12 +147,12 @@ function makeFullSubPortal(subPortal) {
 }
 
 function makePortalsHeader(headerObj) {
-    return `<div class="card  ${window.cardClass}"> <div class="card-header">${headerObj.portalName}</div><div class="card-body"> ${headerObj.portalDesc}</div></div>`
+    return `<div class="card "> <div class="card-header">${headerObj.portalName}</div><div class="card-body"> ${headerObj.portalDesc}</div></div>`
 }
 
 
 function makeSubPortalMain(mainSubPortalJSON) {
-    let text = `<div id="mainPortalsDiv" class="${window.mainSubPortalClass}">`;
+    let text = `<div id="mainPortalsDiv">`;
 
     text += makePortalsHeader({
         "portalName": mainSubPortalJSON.portalName,
@@ -189,8 +189,10 @@ function parseAndCreateSubPortal(portalFile) {
 }
 
 function makeFooter(tagsArr, portalsArr) {
-    let mPortals = `<div class="${window.mPortalsClass}">`;
-    let tags = `<div class="${window.tagsClass}">`;
+    console.log(window);
+    console.log(window.location.hash);
+    let mPortals = `<div>`;
+    let tags = `<div>`;
 
     for (let i = 0; i < tagsArr.length; i++) {
         tags += `<a  href="#tags:${tagsArr[i]}"><span class="badge bg-secondary">${tagsArr[i]}</span></a>&emsp;`;
@@ -209,9 +211,9 @@ function makeFooter(tagsArr, portalsArr) {
 
 function makeFullPage(dataObj) {
     console.log(dataObj)
-    let text = `<div class="${window.articleCLass}">`
+    let text = `<div>`
 
-    text += `<div class="card  ${window.articleHeaderClass}"> <div class="card-header">${dataObj.articleName}</div><div class="card-body"> ${dataObj.articleDesc}</div></div>`;
+    text += `<div class="card"> <div class="card-header">${dataObj.articleName}</div><div class="card-body"> ${dataObj.articleDesc}</div></div>`;
 
     const footer = makeFooter(dataObj.tags, dataObj.articlePortals);
     console.log(footer)
